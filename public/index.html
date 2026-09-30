@@ -1,0 +1,566 @@
+<title>Watt School of Drive</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: asphalt-dark cinematic landing; one amber "headlight" accent; lane-line motif runs down the page. Single-theme by choice. */
+:root{
+  --asphalt:#f8f5ee; --asphalt-2:#ffffff; --panel:#ffffff; --line:#e3ddd0;
+  --fg:#15171c; --muted:#5f6472; --amber:#f5a300; --amber-2:#e07b00; --lane:#e0b400; --ok:#1f9d55;
+  --ink:#0f1116;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--asphalt);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+@media (max-width:600px){.wrap{width:calc(100% - 32px)}}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.01em;line-height:.95;margin:0;text-wrap:balance}
+h2{font-size:clamp(40px,6vw,72px);font-weight:900}
+h3{font-size:26px;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--amber)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:4px;font-weight:700;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:var(--body);font-size:15px;transition:transform .15s,background .15s,border-color .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.btn-amber{background:var(--amber);color:var(--ink);box-shadow:0 8px 24px rgba(245,163,0,.3)}
+.btn-amber:hover{background:#ffb520}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--fg)}
+.btn-ghost:hover{border-color:var(--amber)}
+.arrow{font-family:var(--mono)}
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(248,245,238,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.badge{width:40px;height:40px;border-radius:6px;background:var(--amber);display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:26px;color:var(--ink);box-shadow:0 6px 18px rgba(245,163,0,.35)}
+.brand b{font-family:var(--display);font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;line-height:1}
+.brand small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:3px}
+.links{display:flex;gap:26px;font-size:14px;font-weight:500;color:var(--muted)}
+.links a{text-decoration:none}
+.links a:hover{color:var(--fg)}
+@media (max-width:820px){.links{display:none}}
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:#cfe6f7;min-height:640px}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+.hero .wrap{z-index:2}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(248,245,238,.9) 0%,rgba(248,245,238,.72) 36%,rgba(248,245,238,.08) 60%,rgba(248,245,238,0) 75%);pointer-events:none}
+@media (max-width:900px){.hero::before{background:linear-gradient(180deg,rgba(248,245,238,.9) 0%,rgba(248,245,238,.78) 55%,rgba(248,245,238,.2) 100%)}}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding-block:96px 88px}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;padding-block:64px 56px}}
+.hero h1{font-size:clamp(64px,11vw,148px);font-weight:900;margin:18px 0 22px;color:var(--ink)}
+.hero h1 em{font-style:normal;color:var(--amber-2)}
+.hero .lede{font-size:19px;color:#3a3f4b;max-width:52ch;margin-bottom:34px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.hero .note{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:18px;letter-spacing:.06em}
+/* license card */
+.card-wrap{display:flex;justify-content:center;perspective:1200px}
+.license{color:#f3f0e8;width:min(420px,100%);aspect-ratio:1.586;border-radius:16px;padding:22px;background:linear-gradient(135deg,#1c2029,#0f1116 60%,#1a1d26);border:1px solid #2c3140;box-shadow:0 40px 80px rgba(20,30,50,.35),0 0 0 1px rgba(255,176,0,.08) inset;position:relative;overflow:hidden;transform:rotateY(-10deg) rotateX(6deg);animation:float 7s ease-in-out infinite;display:flex;flex-direction:column;justify-content:space-between}
+@keyframes float{0%,100%{transform:rotateY(-10deg) rotateX(6deg) translateY(0)}50%{transform:rotateY(-7deg) rotateX(3deg) translateY(-10px)}}
+.license::after{content:"";position:absolute;inset:-40% -60%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.08) 50%,transparent 60%);animation:sheen 5s linear infinite}
+@keyframes sheen{from{transform:translateX(-30%)}to{transform:translateX(30%)}}
+.license .top{display:flex;justify-content:space-between;align-items:flex-start}
+.license .state{font-family:var(--display);font-weight:900;font-size:20px;letter-spacing:.08em;text-transform:uppercase}
+.license .state small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--amber)}
+.license .num,.license dt,.license .bot{color:#a2a6b3}
+.license .num{font-family:var(--mono);font-size:11px}
+.license .mid{display:flex;gap:16px;align-items:center}
+.avatar{width:64px;height:78px;border-radius:6px;background:linear-gradient(180deg,#2a2f3b,#1a1e27);border:1px solid #363c4a;display:grid;place-items:center;font-family:var(--display);font-size:30px;font-weight:900;color:var(--amber)}
+.license dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:11px}
+.license dt{font-family:var(--mono);color:var(--muted);letter-spacing:.1em;font-size:9px;text-transform:uppercase;align-self:center}
+.license dd{margin:0;font-weight:600}
+.prog{height:6px;background:#242935;border-radius:99px;overflow:hidden;margin-top:6px}
+.prog i{display:block;height:100%;width:72%;background:linear-gradient(90deg,var(--amber-2),var(--amber));box-shadow:0 0 12px rgba(255,176,0,.7)}
+.license .bot{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--muted)}
+.chip{padding:4px 8px;border-radius:99px;background:rgba(95,214,138,.14);color:#5fd68a;border:1px solid rgba(95,214,138,.35);font-weight:700}
+@media (prefers-reduced-motion:reduce){.license,.license::after,.marq-track{animation:none!important}}
+/* marquee */
+.marq{border-bottom:1px solid var(--line);background:var(--asphalt-2);overflow:hidden;padding-block:14px}
+.marq-track{display:flex;gap:56px;white-space:nowrap;width:max-content;animation:marq 32s linear infinite;font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.marq-track span::before{content:"◆";color:var(--amber);margin-right:18px}
+@keyframes marq{to{transform:translateX(-50%)}}
+/* sections */
+section{padding-block:96px}
+@media (max-width:700px){section{padding-block:64px}}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:48px}
+@media (max-width:820px){.sec-head{grid-template-columns:1fr}}
+.sec-head p{color:var(--muted);font-size:17px;max-width:48ch}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line)}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+.step{background:var(--asphalt);padding:34px 30px;position:relative;min-width:0}
+.step .n{font-family:var(--display);font-size:72px;font-weight:900;color:transparent;-webkit-text-stroke:1px var(--amber);line-height:1}
+.step h3{margin:14px 0 10px}
+.step p{color:var(--muted);font-size:15px}
+.step .tag{position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:30px;display:flex;flex-direction:column;gap:18px;min-width:0;position:relative}
+.plan.hot{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber) inset,0 30px 60px rgba(245,163,0,.15)}
+.plan,.date,.person,.quote{box-shadow:0 10px 30px rgba(30,35,50,.06)}
+.plan .ribbon{position:absolute;top:-12px;left:24px;background:var(--amber);color:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.16em;padding:5px 10px;border-radius:3px;font-weight:700}
+.plan .kind{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.price{font-family:var(--display);font-size:64px;font-weight:900;line-height:1}
+.price sup{font-size:26px;vertical-align:top;margin-right:2px;color:var(--amber)}
+.price small{font-family:var(--body);font-size:14px;font-weight:500;color:var(--muted);text-transform:none;letter-spacing:0;margin-left:8px}
+.plan ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:15px;color:#2b2f3a}
+.plan li::before{content:"—";color:var(--amber);margin-right:10px;font-family:var(--mono)}
+.plan .btn{margin-top:auto;justify-content:center}
+.split{font-family:var(--mono);font-size:12px;color:var(--muted)}
+/* dates */
+.dates{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.date{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px;display:grid;gap:12px;min-width:0}
+.date .d{display:flex;align-items:baseline;gap:10px}
+.date .day{font-family:var(--display);font-size:56px;font-weight:900;line-height:.9}
+.date .mon{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+.date .meta{font-size:14px;color:var(--muted);display:grid;gap:3px}
+.seats{display:flex;gap:4px}
+.seats i{width:14px;height:6px;border-radius:2px;background:var(--amber)}
+.seats i.o{background:#e3ddd0}
+.date .btn{justify-content:center;padding:11px}
+.date.done .btn{background:transparent;border-color:var(--ok);color:var(--ok);cursor:default}
+.date.full .btn{background:transparent;border-color:var(--line);color:var(--muted);cursor:not-allowed}
+/* instructors */
+.people{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:820px){.people{grid-template-columns:1fr}}
+.person{display:grid;grid-template-columns:150px 1fr;gap:26px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:26px;min-width:0}
+@media (max-width:520px){.person{grid-template-columns:1fr}}
+.portrait{aspect-ratio:3/4;border-radius:8px;background:linear-gradient(160deg,#1c2029,#0f1116);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--display);font-size:64px;font-weight:900;color:var(--amber);max-width:100%}
+.person h3{margin-bottom:6px}
+.person .role{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.person p{color:var(--muted);font-size:15px}
+.creds{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.creds span{font-family:var(--mono);font-size:11px;padding:6px 10px;border:1px solid var(--line);border-radius:99px;color:#2b2f3a;background:var(--asphalt)}
+/* app */
+.app{background:var(--asphalt-2);border-block:1px solid var(--line)}
+.app .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+@media (max-width:900px){.app .wrap{grid-template-columns:1fr}}
+.app ul{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:16px}
+.app li{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start}
+.app li b{display:block;font-size:16px}
+.app li span{color:var(--muted);font-size:15px}
+.ico{width:44px;height:44px;border-radius:8px;background:var(--ink);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--mono);color:var(--amber);font-weight:700}
+.phone{color:#f3f0e8;width:min(300px,100%);margin-inline:auto;aspect-ratio:9/19;border-radius:42px;background:#05060a;border:8px solid #1d2129;box-shadow:0 50px 100px rgba(20,30,50,.35);padding:18px 16px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.phone::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#1d2129;border-radius:99px}
+.phone .hdr{margin-top:28px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:#a2a6b3;text-transform:uppercase}
+.phone .tile .k,.phone .quiz .o{color:#a2a6b3}
+.phone .quiz .o.ok,.phone .k[style]{color:#5fd68a!important}
+.phone .big{font-family:var(--display);font-size:34px;font-weight:900;line-height:1}
+.tile{background:#12151c;border:1px solid #232835;border-radius:14px;padding:14px;display:grid;gap:6px}
+.tile .k{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.tile .v{font-weight:700;font-size:15px}
+.ring{width:84px;height:84px;border-radius:50%;background:conic-gradient(var(--amber) 0 72%,#232835 72% 100%);display:grid;place-items:center;margin-left:auto}
+.ring b{width:64px;height:64px;border-radius:50%;background:#12151c;display:grid;place-items:center;font-family:var(--display);font-size:22px}
+.tile.row{grid-template-columns:1fr auto;align-items:center}
+.quiz{display:grid;gap:8px}
+.quiz .q{font-size:12px;font-weight:600}
+.quiz .o{font-size:11px;padding:8px 10px;border:1px solid #232835;border-radius:8px;color:var(--muted)}
+.quiz .o.ok{border-color:var(--ok);color:var(--ok)}
+/* testimonials */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.quotes{grid-template-columns:1fr}}
+.quote{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:28px;display:grid;gap:16px;min-width:0}
+.quote .stars{color:var(--amber);letter-spacing:3px;font-size:14px}
+.quote p{font-size:16px;line-height:1.6}
+.quote .who{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sample{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:18px;letter-spacing:.06em}
+/* faq */
+.faq{display:grid;gap:2px;border:1px solid var(--line);background:var(--line)}
+details{background:var(--asphalt)}
+summary{cursor:pointer;list-style:none;padding:22px 26px;font-weight:600;font-size:17px;display:flex;justify-content:space-between;gap:20px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);color:var(--amber);font-size:20px}
+details[open] summary::after{content:"–"}
+details div{padding:0 26px 24px;color:var(--muted);max-width:70ch}
+/* contact */
+.contact{background:linear-gradient(180deg,var(--asphalt-2),var(--asphalt));border-top:1px solid var(--line)}
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+@media (max-width:900px){.contact .wrap{grid-template-columns:1fr}}
+.cinfo{display:grid;gap:22px;margin-top:28px}
+.cinfo .k{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.cinfo .v{font-family:var(--display);font-size:32px;font-weight:700;letter-spacing:.02em;word-break:break-word}
+.copy{margin-left:12px;font-family:var(--mono);font-size:11px;background:transparent;border:1px solid var(--line);color:var(--muted);padding:5px 9px;border-radius:4px;cursor:pointer;vertical-align:middle}
+.copy:hover{border-color:var(--amber);color:var(--fg)}
+form{display:grid;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:28px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.f2{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+input,select,textarea{font:inherit;font-family:var(--body);font-size:15px;padding:12px 14px;border-radius:6px;border:1px solid var(--line);background:#fff;color:var(--fg);width:100%;min-width:0}
+form{box-shadow:0 10px 30px rgba(30,35,50,.06)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-offset:1px;border-color:var(--amber)}
+.sent{display:none;padding:14px;border:1px solid var(--ok);color:var(--ok);border-radius:6px;font-weight:600}
+form.ok .sent{display:block}
+/* footer */
+footer{border-top:1px solid var(--line);padding-block:36px;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+footer .dom{font-family:var(--mono);color:var(--amber-2);letter-spacing:.1em}
+.lane{height:3px;background:repeating-linear-gradient(90deg,var(--lane) 0 40px,transparent 40px 70px);opacity:.8}
+.contact .v[style*="amber"]{color:var(--amber-2)!important}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:6px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:99;font-size:14px}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="badge">W</span><span><b data-cfg="name">Watt School of Drive</b><small data-cfg="tagline">Mississippi · Hardship License Program</small></span></a>
+    <nav class="links"><a href="#how">How it works</a><a href="#pricing">Courses</a><a href="#dates">Academy dates</a><a href="#team">Instructors</a><a href="#app">App</a><a href="#contact">Contact</a></nav>
+    <a class="btn btn-amber" href="#pricing">Enroll now <span class="arrow">→</span></a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Licensed driver education · Ages 15+</span>
+      <h1>Get<br>behind<br>the <em>wheel.</em></h1>
+      <p class="lede">Finish the state-approved online course at your pace, drive three real hours with a certified instructor, and walk into the DMV with your certificate in hand. Most students are ready in ten days.</p>
+      <div class="cta">
+        <a class="btn btn-amber" href="#pricing">Start the online course <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="#dates">See academy dates</a>
+      </div>
+      <p class="note">$300 ONLINE · PAY IN INSTALLMENTS · CERTIFICATE IN ≈10 DAYS</p>
+    </div>
+    <div class="card-wrap">
+      <div class="license" aria-label="Student progress card preview">
+        <div class="top"><div class="state"><small>Student progress card</small>Watt School of Drive</div><div class="num">WSD-2026-0417</div></div>
+        <div class="mid">
+          <div class="avatar">J</div>
+          <dl>
+            <dt>Student</dt><dd>Jaylen M.</dd>
+            <dt>Online</dt><dd>18 of 25 lessons</dd>
+            <dt>Drive time</dt><dd>3.0 / 3.0 hrs</dd>
+            <dt>Progress</dt><dd><div class="prog"><i></i></div></dd>
+          </dl>
+        </div>
+        <div class="bot"><span>CERT. ELIGIBLE · OCT 09</span><span class="chip">ON TRACK</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true">
+  <div class="marq-track">
+    <span>State-approved curriculum</span><span>3 hours behind the wheel</span><span>Certificate of completion</span><span>Hardship license ready</span><span>Text your instructor</span><span>Pay in installments</span>
+    <span>State-approved curriculum</span><span>3 hours behind the wheel</span><span>Certificate of completion</span><span>Hardship license ready</span><span>Text your instructor</span><span>Pay in installments</span>
+  </div>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">How it works</span><h2>Three steps.<br>One license.</h2></div>
+      <p>You can attend the Hands-On Academy before you finish the online course, but you need both to receive your certificate. After that, most students qualify for a hardship license within about ten days.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="tag">Online · self-paced</span><div class="n">01</div><h3>Enroll online</h3><p>Sign up, pay once or in installments, and work through the course from your phone. Lessons, videos, and practice quizzes unlock as you go.</p></div>
+      <div class="step"><span class="tag">In person · 3 hrs</span><div class="n">02</div><h3>Hands-On Academy</h3><p>Pick a date, show up, drive. Three hours of real road time with a certified instructor, then finish any remaining online lessons.</p></div>
+      <div class="step"><span class="tag">≈ 10 days</span><div class="n">03</div><h3>Get certified</h3><p>Your Certificate of Completion is issued digitally and by mail. Take it to the DMV for your hardship license.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" style="background:var(--asphalt-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">Courses &amp; pricing</span><h2>Simple pricing.<br>No surprises.</h2></div>
+      <p>Enroll in the online course first. You can add the Hands-On Academy at checkout or come back and book a date later.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <span class="kind">Step 1 · Online</span>
+        <div class="price"><sup>$</sup><span data-cfg="priceOnline">300</span></div>
+        <p class="split">or 3 × $100 installments</p>
+        <ul><li>25 self-paced lessons</li><li>Practice tests &amp; sign quizzes</li><li>Progress saved across devices</li><li>Required before certificate</li></ul>
+        <a class="btn btn-amber" href="#contact">Enroll online</a>
+      </div>
+      <div class="plan hot">
+        <span class="ribbon">MOST POPULAR</span>
+        <span class="kind">Bundle · Online + Hands-On</span>
+        <div class="price"><sup>$</sup><span data-cfg="priceBundle">450</span><small>save $50</small></div>
+        <p class="split">or 3 × $150 installments</p>
+        <ul><li>Everything in Online</li><li>3-hour Hands-On Academy</li><li>Priority date selection</li><li>Certificate of Completion</li></ul>
+        <a class="btn btn-amber" href="#contact">Enroll in bundle</a>
+      </div>
+      <div class="plan">
+        <span class="kind">Step 2 · Hands-On</span>
+        <div class="price"><sup>$</sup><span data-cfg="priceHandsOn">200</span></div>
+        <p class="split">one date · 3 hours · small groups</p>
+        <ul><li>Certified instructor</li><li>Dual-control vehicle</li><li>Real road &amp; lot practice</li><li>Requires online enrollment</li></ul>
+        <a class="btn btn-ghost" href="#dates">Pick a date</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dates">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">Hands-On Driving Academy</span><h2>Upcoming<br>dates.</h2></div>
+      <p>Classes meet at <b style="color:var(--fg)" data-cfg="venue">the Watt Training Lot</b>, <span data-cfg="city">Booneville, MS</span>. Seats are capped so everyone gets full wheel time. Tap a date to reserve it.</p>
+    </div>
+    <div class="dates" id="dateGrid"></div>
+  </div>
+</section>
+
+<section id="team" style="background:var(--asphalt-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">Instructors</span><h2>Who you'll<br>ride with.</h2></div>
+      <p>Certified, patient, and local. You learn from the owner, not a rotating roster.</p>
+    </div>
+    <div class="people" style="grid-template-columns:1fr">
+      <div class="person" style="grid-template-columns:180px 1fr;max-width:820px">
+        <div class="portrait" data-cfg="instructorInitial">LW</div>
+        <div><h3 data-cfg="instructor">Lester Watt</h3><div class="role">Founder · Lead Instructor</div><p>Lester built Watt School of Drive around one idea: nobody should be nervous walking into the DMV. He teaches calm, defensive driving and has put hundreds of first-time drivers on the road. Every online lesson, every practice test, and every hour behind the wheel is his curriculum.</p>
+          <div class="creds"><span>State certified</span><span>Defensive driving</span><span>Teen &amp; adult</span><span>Dual-control vehicle</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="app" id="app">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Student app · iPhone &amp; Android</span>
+      <h2 style="margin-top:14px">The course<br>in your pocket.</h2>
+      <ul>
+        <li><span class="ico">01</span><div><b>Lessons &amp; quizzes offline</b><span>Finish a module on the bus. Progress syncs when you're back online.</span></div></li>
+        <li><span class="ico">02</span><div><b>Book &amp; reschedule drive dates</b><span>See open seats, reserve, get a reminder the night before.</span></div></li>
+        <li><span class="ico">03</span><div><b>Text your instructor</b><span>Questions go straight to Lester, not a help desk.</span></div></li>
+        <li><span class="ico">04</span><div><b>Digital certificate</b><span>Your Certificate of Completion lives in the app the moment it's issued.</span></div></li>
+      </ul>
+    </div>
+    <div class="phone" aria-label="App preview">
+      <div class="hdr">Good morning, Jaylen</div>
+      <div class="big">18 / 25<br><span style="color:var(--amber)">lessons done</span></div>
+      <div class="tile row"><div><div class="k">Overall progress</div><div class="v">72% · on track</div></div><div class="ring"><b>72%</b></div></div>
+      <div class="tile"><div class="k">Next drive date</div><div class="v">Sat, Oct 4 · 9:00 AM</div><div class="k" style="color:var(--ok)">Reserved · Seat 3 of 6</div></div>
+      <div class="tile quiz"><div class="k">Quick quiz · Lesson 19</div><div class="q">A flashing yellow light means…</div><div class="o ok">Slow down and proceed with caution</div><div class="o">Stop, then go when clear</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="stories">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">Student stories</span><h2>Nervous in.<br>Licensed out.</h2></div>
+    </div>
+    <div class="quotes">
+      <div class="quote"><div class="stars">★★★★★</div><p>"My daughter was terrified of the interstate. After her three hours with Mr. Watt she asked to drive home. Certificate came four days later."</p><div class="who">Parent · Prentiss County</div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"Did the whole online course on my phone during lunch breaks. The practice tests were harder than the real one, which is exactly what I wanted."</p><div class="who">Student · Age 16</div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"Booked a Saturday date, got a text reminder Friday night, and had my hardship license by the next week. Couldn't have been easier."</p><div class="who">Student · Age 15</div></div>
+    </div>
+    <p class="sample">SAMPLE REVIEWS · REPLACED WITH REAL STUDENT REVIEWS AT LAUNCH</p>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--asphalt-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Questions</span><h2>Before you<br>enroll.</h2></div></div>
+    <div class="faq">
+      <details open><summary>Can I take the Hands-On Academy before I finish the online course?</summary><div>Yes. You can attend any academy date after you enroll online. You'll need to complete both parts before your Certificate of Completion is issued.</div></details>
+      <details><summary>How long until I can get my hardship license?</summary><div>Most students qualify within about ten days of completing both parts. You take your certificate to the DMV to apply.</div></details>
+      <details><summary>Can I pay in installments?</summary><div>Yes. Both the online course and the bundle can be split into three monthly payments at checkout.</div></details>
+      <details><summary>What do I bring to the Hands-On Academy?</summary><div>Your learner's permit, closed-toe shoes, and a parent or guardian signature if you're under 18. We provide the vehicle.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Contact</span>
+      <h2 style="margin-top:14px">Questions?<br>Text Lester.</h2>
+      <div class="cinfo">
+        <div><div class="k">Email</div><div class="v"><span data-cfg="email">lester@wattdrive.com</span><button class="copy" data-copy="lester@wattdrive.com" type="button">COPY</button></div></div>
+        <div><div class="k">Call or text</div><div class="v"><span data-cfg="phone">(662) 555-0140</span><button class="copy" data-copy="6625550140" type="button">COPY</button></div></div>
+        <div><div class="k">Academy location</div><div class="v" style="font-size:22px" data-cfg="address">Watt Training Lot · Booneville, MS 38829</div></div>
+        <div><div class="k">Web</div><div class="v" style="font-size:22px;color:var(--amber)" data-cfg="domain">wattdrive.com</div></div>
+      </div>
+    </div>
+    <form id="lead" novalidate>
+      <div class="f2">
+        <label>Student name<input id="f-name" name="name" required autocomplete="name"></label>
+        <label>Phone<input id="f-phone" name="phone" type="tel" required autocomplete="tel"></label>
+      </div>
+      <label>Email<input id="f-email" name="email" type="email" autocomplete="email"></label>
+      <div class="f2">
+        <label>I'm interested in<select id="f-course" name="course"><option>Online course · $300</option><option>Bundle · $450</option><option>Hands-On Academy · $200</option></select></label>
+        <label>Preferred academy date<select id="f-date" name="date"><option>Any open date</option></select></label>
+      </div>
+      <label>Anything we should know?<textarea id="f-msg" name="message" rows="3"></textarea></label>
+      <button class="btn btn-amber" type="submit" style="justify-content:center">Send enrollment request <span class="arrow">→</span></button>
+      <div class="sent">Got it. Lester will text you within one business day to finish enrollment.</div>
+    </form>
+  </div>
+</section>
+
+<div class="lane"></div>
+<footer>
+  <div class="wrap">
+    <div>© 2026 <span data-cfg="name">Watt School of Drive</span> · State-approved driver education</div>
+    <div class="dom" data-cfg="domain">WATTDRIVE.COM</div>
+    <div>Website &amp; app by Tech Smart Inc.</div>
+  </div>
+</footer>
+<div class="toast" id="toast">Copied</div>
+
+<script>
+/* ===== SITE SETTINGS ===== */
+const SITE = {
+  name:"Watt School of Drive", tagline:"Mississippi · Hardship License Program",
+  instructor:"Lester Watt", instructorInitial:"LW",
+  email:"lester@wattdrive.com", phone:"(662) 555-0140", domain:"wattdrive.com",
+  venue:"the Watt Training Lot", city:"Booneville, MS", address:"Watt Training Lot · Booneville, MS 38829",
+  priceOnline:300, priceHandsOn:200, priceBundle:450,
+  dates:[
+    {day:"04",mon:"Oct",time:"9:00 AM – 12:00 PM",seats:6,taken:3},
+    {day:"11",mon:"Oct",time:"9:00 AM – 12:00 PM",seats:6,taken:6},
+    {day:"18",mon:"Oct",time:"1:00 PM – 4:00 PM",seats:6,taken:1},
+    {day:"25",mon:"Oct",time:"9:00 AM – 12:00 PM",seats:6,taken:4},
+    {day:"01",mon:"Nov",time:"9:00 AM – 12:00 PM",seats:6,taken:0},
+    {day:"08",mon:"Nov",time:"1:00 PM – 4:00 PM",seats:6,taken:2}
+  ]
+};
+document.querySelectorAll("[data-cfg]").forEach(el=>{const k=el.dataset.cfg;if(SITE[k]!=null)el.textContent=SITE[k]});
+
+/* dates grid */
+const grid=document.getElementById("dateGrid"),dateSel=document.getElementById("f-date");
+SITE.dates.forEach((d,i)=>{
+  const left=d.seats-d.taken,full=left<=0;
+  const el=document.createElement("div");el.className="date"+(full?" full":"");
+  el.innerHTML=`<div class="d"><span class="day">${d.day}</span><span class="mon">${d.mon} · Sat</span></div>
+    <div class="meta"><span>${d.time}</span><span>${full?"Waitlist only":left+" of "+d.seats+" seats open"}</span></div>
+    <div class="seats">${Array.from({length:d.seats},(_,j)=>`<i class="${j<d.taken?"o":""}"></i>`).join("")}</div>
+    <button class="btn ${full?"btn-ghost":"btn-amber"}" type="button">${full?"Join waitlist":"Reserve seat"}</button>`;
+  el.querySelector("button").addEventListener("click",()=>{
+    if(el.classList.contains("done"))return;
+    el.classList.add("done");el.querySelector("button").textContent=full?"On waitlist ✓":"Reserved ✓";
+    dateSel.value=`${d.mon} ${d.day}`;toast(full?"Added to waitlist":"Seat held — finish enrollment below");
+    document.getElementById("contact").scrollIntoView({behavior:"smooth"});
+  });
+  grid.appendChild(el);
+  const o=document.createElement("option");o.textContent=`${d.mon} ${d.day} · ${d.time}`;o.value=`${d.mon} ${d.day}`;dateSel.appendChild(o);
+});
+
+/* form + copy */
+document.getElementById("lead").addEventListener("submit",e=>{e.preventDefault();const f=e.target;if(!f.name.value||!f.phone.value){toast("Add a name and phone number");return}f.classList.add("ok")});
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2200)}
+document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(b.dataset.copy);toast("Copied")}catch{const r=document.createRange();r.selectNodeContents(b.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Select and copy")}}));
+
+/* ===== Live mountain road scene (Canvas) ===== */
+(()=>{
+const c=document.getElementById("scene"),x=c.getContext("2d");
+const rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let W,H,D,road=[],total=0,layers=[],clouds=[],t0=performance.now();
+const R=(s=>()=>(s=(s*16807)%2147483647)/2147483647)(1234);   // seeded noise
+function size(){D=Math.min(devicePixelRatio||1,2);W=c.width=c.offsetWidth*D;H=c.height=c.offsetHeight*D;build()}
+addEventListener("resize",size);
+
+function build(){
+  // mountains: 4 parallax layers, far → near
+  const spec=[[.30,.20,"#c7d4e6","#b3c3da"],[.40,.22,"#8fa9bf","#7d97ad"],[.52,.20,"#5f8a6c","#4f7a5c"],[.66,.18,"#3f6b45","#325a39"]];
+  layers=spec.map(([base,amp,c1,c2],li)=>{const pts=[];const n=18+li*6;for(let i=0;i<=n;i++){const px=i/n;const y=base-amp*(0.35+0.65*Math.abs(Math.sin(px*(5+li*3)+li*1.7)))*(0.6+0.4*R());pts.push([px,y])}return{pts,c1,c2,base}});
+  clouds=Array.from({length:7},(_,i)=>({x:R()*1.4-.2,y:.06+R()*.16,s:.06+R()*.09,v:(.004+R()*.006)}));
+  // road: Catmull-Rom through winding control points (foreground → far pass)
+  const P=[[-.06,1.06],[.22,.98],[.48,.88],[.64,.76],[.50,.66],[.34,.60],[.42,.53],[.60,.50],[.72,.46],[.66,.42],[.58,.40],[.62,.37],[.70,.35]];
+  road=[];total=0;
+  for(let i=0;i<P.length-1;i++){const p0=P[Math.max(i-1,0)],p1=P[i],p2=P[i+1],p3=P[Math.min(i+2,P.length-1)];
+    for(let s=0;s<24;s++){const u=s/24,u2=u*u,u3=u2*u;
+      const px=.5*((2*p1[0])+(-p0[0]+p2[0])*u+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*u2+(-p0[0]+3*p1[0]-3*p2[0]+p3[0])*u3);
+      const py=.5*((2*p1[1])+(-p0[1]+p2[1])*u+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*u2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*u3);
+      road.push({x:px*W,y:py*H})}}
+  road.push({x:P.at(-1)[0]*W,y:P.at(-1)[1]*H});
+  for(let i=0;i<road.length;i++){const a=road[i],b=road[Math.min(i+1,road.length-1)],p=road[Math.max(i-1,0)];
+    const dx=b.x-p.x,dy=b.y-p.y,L=Math.hypot(dx,dy)||1;a.tx=dx/L;a.ty=dy/L;a.nx=-a.ty;a.ny=a.tx;
+    a.d=i?road[i-1].d+Math.hypot(a.x-road[i-1].x,a.y-road[i-1].y):0}
+  total=road.at(-1).d;
+  road.forEach(p=>{p.t=p.d/total;p.w=(170*(1-p.t)**1.15+9)*(W/1400)});
+}
+function at(d){d=Math.max(0,Math.min(total,d));let lo=0,hi=road.length-1;while(hi-lo>1){const m=(lo+hi)>>1;road[m].d<=d?lo=m:hi=m}
+  const a=road[lo],b=road[hi],u=(d-a.d)/((b.d-a.d)||1);
+  return{x:a.x+(b.x-a.x)*u,y:a.y+(b.y-a.y)*u,tx:a.tx+(b.tx-a.tx)*u,ty:a.ty+(b.ty-a.ty)*u,nx:a.nx+(b.nx-a.nx)*u,ny:a.ny+(b.ny-a.ny)*u,w:a.w+(b.w-a.w)*u,t:a.t+(b.t-a.t)*u}}
+
+/* vehicles */
+const V=[
+  {kind:"moto", d:.05, sp:.085, lane:.28, col:"#e0342b"},
+  {kind:"car",  d:.30, sp:.070, lane:.28, col:"#2b6fd6"},
+  {kind:"truck",d:.58, sp:.055, lane:.28, col:"#f5a300"},
+  {kind:"car",  d:.85, sp:.062, lane:-.28,col:"#f3f0e8",back:true}
+];
+function drawVehicle(v,p){
+  const s=Math.max(p.w/(179*(W/1400)),.08);              // perspective scale 0..1
+  const ox=p.nx*p.w*v.lane,oy=p.ny*p.w*v.lane;
+  const a=Math.atan2(p.ty,p.tx);const dir=v.back?a+Math.PI:a;
+  x.save();x.translate(p.x+ox,p.y+oy);x.rotate(dir);if(Math.cos(dir)<0)x.scale(1,-1);
+  const u=s*2.1*Math.max(.7,Math.min(1.4,W/1400));x.scale(u,u);
+  // shadow
+  x.fillStyle="rgba(0,0,0,.25)";x.beginPath();x.ellipse(0,10,(v.kind==="truck"?46:v.kind==="moto"?16:30),5,0,0,7);x.fill();
+  x.lineJoin="round";
+  if(v.kind==="car"){
+    x.fillStyle=v.col;rr(-30,-8,60,14,4);x.fillStyle=v.col;rr(-18,-20,32,14,6);
+    x.fillStyle="#bfe3f7";rr(-14,-18,11,9,2);rr(1,-18,11,9,2);
+    x.fillStyle="#fff7c2";rr(28,-6,3,5,1);x.fillStyle="#ff4a3d";rr(-31,-6,3,5,1);
+    wheel(-18,6);wheel(18,6);
+  }else if(v.kind==="truck"){
+    x.fillStyle="#f8f5ee";rr(-48,-32,58,38,3);x.fillStyle="#ddd7c8";rr(-48,-32,58,6,2);
+    x.fillStyle=v.col;rr(12,-20,34,26,5);x.fillStyle="#bfe3f7";rr(30,-17,13,11,2);
+    x.fillStyle="#333";rr(-50,4,100,6,2);x.fillStyle="#fff7c2";rr(45,-4,3,6,1);
+    wheel(-36,10);wheel(-20,10);wheel(30,10);
+    // WATT logo on trailer
+    x.fillStyle="#15171c";x.font="900 13px 'Big Shoulders Display',Impact,sans-serif";x.textAlign="center";x.fillText("WATT DRIVE",-19,-9);
+  }else{
+    wheel(-13,6,7);wheel(13,6,7);
+    x.strokeStyle="#333";x.lineWidth=3;x.beginPath();x.moveTo(-13,6);x.lineTo(-2,-4);x.lineTo(10,-2);x.lineTo(13,6);x.moveTo(10,-2);x.lineTo(14,-10);x.stroke();
+    x.fillStyle=v.col;rr(-6,-8,16,7,3);
+    // rider
+    x.fillStyle="#1f2430";rr(-6,-20,8,13,3);x.beginPath();x.arc(-2,-24,5,0,7);x.fillStyle="#f5a300";x.fill();
+    x.strokeStyle="#1f2430";x.lineWidth=3;x.beginPath();x.moveTo(-1,-15);x.lineTo(11,-11);x.stroke();
+  }
+  x.restore();
+  function wheel(px,py,r=6){x.fillStyle="#1a1c22";x.beginPath();x.arc(px,py,r,0,7);x.fill();x.fillStyle="#8b8f99";x.beginPath();x.arc(px,py,r*.45,0,7);x.fill()}
+  function rr(px,py,w,h,r){x.beginPath();x.roundRect(px,py,w,h,r);x.fill()}
+}
+
+function draw(now){
+  const dt=rm?0:Math.min((now-t0)/1000,.05);t0=now;
+  x.clearRect(0,0,W,H);
+  // sky
+  let g=x.createLinearGradient(0,0,0,H*.7);g.addColorStop(0,"#7fb9ea");g.addColorStop(.55,"#cfe6f7");g.addColorStop(1,"#fff1d6");x.fillStyle=g;x.fillRect(0,0,W,H);
+  // sun
+  const sx=W*.78,sy=H*.16;g=x.createRadialGradient(sx,sy,0,sx,sy,W*.28);g.addColorStop(0,"rgba(255,236,170,.95)");g.addColorStop(.12,"rgba(255,220,120,.6)");g.addColorStop(1,"rgba(255,220,120,0)");x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.fillStyle="#fff6d0";x.beginPath();x.arc(sx,sy,W*.028,0,7);x.fill();
+  // clouds
+  x.fillStyle="rgba(255,255,255,.85)";clouds.forEach(cl=>{cl.x+=cl.v*dt;if(cl.x>1.25)cl.x=-.25;const cx=cl.x*W,cy=cl.y*H,r=cl.s*W*.5;
+    [[0,0,1],[-.9,.15,.7],[.9,.18,.75],[.35,-.28,.6],[-.4,-.22,.55]].forEach(([dx,dy,k])=>{x.beginPath();x.arc(cx+dx*r,cy+dy*r,r*k,0,7);x.fill()})});
+  // mountains
+  layers.forEach((L,i)=>{g=x.createLinearGradient(0,L.base*H-H*.2,0,H);g.addColorStop(0,L.c1);g.addColorStop(1,L.c2);x.fillStyle=g;x.beginPath();x.moveTo(-10,H+10);
+    L.pts.forEach(([px,py])=>x.lineTo(px*W,py*H));x.lineTo(W+10,H+10);x.closePath();x.fill();
+    if(i===0){x.fillStyle="rgba(255,255,255,.8)";L.pts.forEach(([px,py],j)=>{if(j%3===1&&py<L.base-.13){x.beginPath();x.moveTo(px*W-W*.02,py*H+H*.04);x.lineTo(px*W,py*H);x.lineTo(px*W+W*.02,py*H+H*.04);x.closePath();x.fill()}})}});
+  // valley ground
+  g=x.createLinearGradient(0,H*.55,0,H);g.addColorStop(0,"#6f9d5a");g.addColorStop(1,"#4f7f3f");x.fillStyle=g;x.fillRect(0,H*.6,W,H*.4);
+  // road: shoulders, asphalt, edge lines, center dashes
+  strokeRoad(1.25,"#7c8a60");strokeRoad(1,"#4a4d55");
+  x.strokeStyle="rgba(255,255,255,.85)";edgeLines();
+  centerDashes(now);
+  // trees along the near ridge
+  x.fillStyle="#2f5a34";for(let i=0;i<26;i++){const px=(i/26+.02)*W,py=layers[3].pts[Math.floor(i/26*layers[3].pts.length)][1]*H;tree(px,py+H*.03,(8+(i*7)%9)*D)}
+  // vehicles (far first)
+  V.forEach(v=>{v.d+=(v.back?-1:1)*v.sp*dt*(0.35+0.65*(1-v.d));if(v.d>1.02)v.d=-.02;if(v.d<-.02)v.d=1.02});
+  [...V].sort((a,b)=>b.d-a.d).forEach(v=>drawVehicle(v,at(v.d*total)));
+  // haze at the horizon line
+  g=x.createLinearGradient(0,H*.3,0,H*.55);g.addColorStop(0,"rgba(207,230,247,0)");g.addColorStop(1,"rgba(207,230,247,.25)");x.fillStyle=g;x.fillRect(0,H*.3,W,H*.25);
+  if(!rm)requestAnimationFrame(draw)
+}
+function strokeRoad(k,col){x.fillStyle=col;x.beginPath();for(let i=0;i<road.length;i++){const p=road[i];x.lineTo(p.x+p.nx*p.w*k/2,p.y+p.ny*p.w*k/2)}for(let i=road.length-1;i>=0;i--){const p=road[i];x.lineTo(p.x-p.nx*p.w*k/2,p.y-p.ny*p.w*k/2)}x.closePath();x.fill()}
+function edgeLines(){[1,-1].forEach(s=>{x.beginPath();road.forEach((p,i)=>{const px=p.x+s*p.nx*p.w*.46,py=p.y+s*p.ny*p.w*.46;i?x.lineTo(px,py):x.moveTo(px,py)});x.lineWidth=1.2*D;x.stroke()})}
+function centerDashes(now){x.strokeStyle="#ffd94a";const off=rm?0:(now/40)%60;for(let d=off*D;d<total;d+=60*D){const a=at(d),b=at(Math.min(d+26*D*(1-a.t*.6),total));if(a.w<14)break;x.lineWidth=Math.max(1,a.w*.05);x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
+function tree(px,py,s){x.beginPath();x.moveTo(px,py-s*2.2);x.lineTo(px+s*.8,py);x.lineTo(px-s*.8,py);x.closePath();x.fill();x.beginPath();x.moveTo(px,py-s*1.6);x.lineTo(px+s*.6,py-s*.7);x.lineTo(px-s*.6,py-s*.7);x.closePath();x.fill()}
+size();requestAnimationFrame(draw);
+})();
+</script>
